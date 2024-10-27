@@ -1,0 +1,34 @@
+\chapter{建设网页体验平台的步骤}
+
+\section{准备接口层}
+将智能单测生成方法封装成一个可被网页调用的接口，如 REST API 或 GraphQL。可以使用 Flask、FastAPI（Python）或 Express.js（Node.js）等框架实现后端服务，提供接收代码文件或文本的接口，并返回生成的单测代码。
+
+\section{选择 Web 框架并设计前端}
+选择合适的前端框架（如 React、Vue.js 或 Angular）构建网页，设计用户界面，让用户可以在网页上上传代码文件、输入代码，或直接调用单测生成方法，并展示生成的单测代码。
+
+\section{连接前后端}
+在前端使用 \texttt{fetch} 或 \texttt{axios} 等方式，将用户输入的数据发送至后端接口，接收并显示生成的单测代码。
+
+\section{部署服务器}
+将前后端应用部署至服务器，确保服务可外网访问。可以选择以下部署方案：
+\begin{itemize}
+    \item 云平台：AWS、Google Cloud、Azure 等提供后端服务和静态网页托管。
+    \item 全栈平台：Heroku、Vercel 或 Render 等方便托管前端和后端。
+    \item Docker 容器化：使用 Docker 打包应用，便于在服务器上运行和管理。
+\end{itemize}
+
+\section{域名和 HTTPS}
+申请域名并配置 HTTPS 证书，使用户可以通过安全连接访问网页体验。
+
+\section{用户体验优化}
+\begin{itemize}
+    \item 输入输出优化：增加示例代码，帮助用户理解如何使用。
+    \item 错误处理：处理常见错误，如输入错误、生成失败等。
+    \item 响应优化：对较大文件或复杂代码，加入进度条等响应式设计。
+\end{itemize}
+
+\section{数据存储与分析（可选）}
+如需跟踪使用情况，可将用户上传数据存储至数据库中，并分析用户生成的单测情况，以便进一步优化单测方法。
+
+\chapter{总结}
+建设网页体验平台的大致流程为：封装接口 $\rightarrow$ 构建前端 $\rightarrow$ 前后端连接 $\rightarrow$ 部署上线 $\rightarrow$ 优化用户体验。通过此方式，可以为他人提供体验智能单测生成方法的平台。
