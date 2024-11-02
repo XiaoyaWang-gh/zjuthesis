@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+\begin{document}
+\begin{algorithm}
+    \caption{Test Case Generation}
+    \begin{algorithmic}[1]
+        \STATE \textbf{Input:} FUT (focal method under test), STC (seed test case) [might be None],
+        maxGenCnt (maximum generation count), maxStallLen (maximum stall Length)
+        \STATE \textbf{Output:} An archive of test cases
+        \STATE genCnt $\gets$ 0
+        \STATE stallLen $\gets$ 0
+        \IF{STC is None}
+        \WHILE{genCnt $\leq$ maxGenCnt}
+        \STATE STC $\gets$ LLM(FUT + Strategy\_Two)
+        \STATE genCnt $\gets$ genCnt + 1
+        \IF{STC is not passed}
+        \STATE STC, X $\gets$ feedbackToLLM(NTC)
+        \STATE genCnt $\gets$ genCnt + X
+        \ELSE
+        \STATE \textbf{break}
+        \ENDIF
+        \IF{STC is passed}
+        \STATE \textbf{break}
+        \ENDIF
+        \ENDWHILE
+        \ENDIF
+        \IF{STC is None}
+        \RETURN [] \COMMENT{The empty tcArchive}
+        \ENDIF
+        coverageMax $\gets$ calCoverage(STC)
+        tcArchive $\gets$ [STC]
+        coverageBefore $\gets$ calCoverage(tcArchive)
+        \WHILE{genCnt $\leq$ maxGenCnt}
+        \IF{stallLen < maxStallLen}
+        \STATE NTC $\gets$ LLM(FUT + STC + Strategy\_One)
+        \ELSE
+        \STATE NTC $\gets$ LLM(FUT + Strategy\_Two)
+        \ENDIF
+        \IF{NTC is not passed}
+        \STATE NTC, X $\gets$ feedbackToLLM(NTC)
+        \ENDIF
+        \IF{NTC is not passed}
+        \STATE genCnt $\gets$ genCnt + X
+        \STATE \textbf{continue}
+        \ENDIF
+        \IF{calCoverage(NTC) > coverageMax}
+        \STATE STC $\gets$ NTC
+        \STATE coverageMax $\gets$ calCoverage(NTC)
+        \ENDIF
+        coverageNow $\gets$ calCoverage(tcArchive + NTC)
+        \IF{coverageNow == coverageBefore} % 使用双等号
+        \STATE stallLen $\gets$ stallLen + 1
+        \ELSE
+        \STATE tcArchive $\gets$ tcArchive + NTC
+        \STATE coverageBefore $\gets$ coverageNow
+        \STATE stallLen $\gets$ 0
+        \ENDIF
+        \STATE genCnt $\gets$ genCnt + 1
+        \ENDWHILE
+        \RETURN tcArchive
+    \end{algorithmic}
+\end{algorithm}
+\end{document}

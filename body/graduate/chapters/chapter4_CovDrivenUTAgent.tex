@@ -1,8 +1,21 @@
+\documentclass{book}
+\usepackage{ctex} % 添加中文支持
+\begin{document}
 \chapter{基于智能体的覆盖率引导的单测生成方法}
-    \section{方法介绍}
-    \section{方法实现}
-        \subsection{和上一部分的衔接}
-        \subsection{整体算法}
-        \subsection{生成式fuzz}
-        \subsection{变异式fuzz}
-    \section{本章小结}
+\section{方法介绍}
+\section{方法实现}
+\subsection{和上一部分的衔接}
+上一章提出的算法CasModaTest产生的最终结果（执行成功的测试用例），将被用作本章提出的算法CovDrivenUTAgent的种子测试用例集合。
+本章的想法借鉴了基于遗传算法的
+
+
+\subsection{整体算法}
+\input{C:/codes/zjuthesis/zjuthesis/body/graduate/algos/cov_driven_utgen.tex}
+
+
+\subsection{生成式fuzz}
+举例说明生成式fuzz
+\subsection{变异式fuzz}
+举例说明变异式fuzz
+\section{本章小结}
+\end{document}
